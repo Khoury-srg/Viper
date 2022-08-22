@@ -1,5 +1,9 @@
 # Viper
-This is the root directory of a research project, Viper. [Viper: A Fast Snapshot Isolation Checker]() is a research paper studying checking snapshot isolation of black-box databases and has been conditionally accepted by The European Conference on Computer Systems (Eurosys 2023).
+This is the root directory of a research project, Viper. [Viper: A Fast Snapshot Isolation Checker]() is a research paper studying checking snapshot isolation of black-box databases. It consists of two components:
+* [Viper](https://github.com/Khoury-srg/Viper): checks snapshot isolation of a set of transactions (called a _history_)
+* [Viper bench](https://github.com/Khoury-srg/ViperBench): database clients that interact with a black-box database and generate histories
+
+If you want to generate new histories, see [Viper bench](https://github.com/Khoury-srg/ViperBench).
 
 ## How to run?
 ### Using Docker (Recommended)
