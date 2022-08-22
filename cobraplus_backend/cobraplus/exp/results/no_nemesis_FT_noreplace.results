@@ -1,0 +1,188 @@
+Checking 20220112T053738.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/history.log
+
+1436 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/SI.graph
+#nodes=1436
+#edges=34873
+#edge pairs=11772
+#keys=502
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053738.000Z/check_result.txt
+unsat_core: [184(303, 330),
+ 184(330, 297),
+ Xor(184(303, 330), 184(330, 297))]
+Checking 20220112T053824.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/history.log
+
+1040 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/SI.graph
+#nodes=1040
+#edges=24102
+#edge pairs=9377
+#keys=355
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053824.000Z/check_result.txt
+unsat_core: [94(156, 163),
+ 94(180, 156),
+ Xor(94(156, 163), 94(180, 156))]
+Checking 20220112T053910.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/history.log
+
+1030 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/SI.graph
+#nodes=1030
+#edges=26888
+#edge pairs=9301
+#keys=355
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053910.000Z/check_result.txt
+unsat_core: [607(1009, 1010),
+ 607(1013, 1009),
+ Xor(607(1009, 1010), 607(1013, 1009))]
+Checking 20220112T053955.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/history.log
+
+1108 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/SI.graph
+#nodes=1108
+#edges=27404
+#edge pairs=10068
+#keys=373
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T053955.000Z/check_result.txt
+unsat_core: [328(550, 557),
+ 328(565, 550),
+ Xor(328(550, 557), 328(565, 550))]
+Checking 20220112T054041.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/history.log
+
+1051 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/SI.graph
+#nodes=1051
+#edges=23576
+#edge pairs=10571
+#keys=368
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054041.000Z/check_result.txt
+unsat_core: [116(203, 183),
+ 116(183, 193),
+ Xor(116(183, 193), 116(203, 183))]
+Checking 20220112T054128.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/history.log
+
+1060 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/SI.graph
+#nodes=1060
+#edges=24364
+#edge pairs=8581
+#keys=381
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054128.000Z/check_result.txt
+unsat_core: [148(243, 245),
+ 148(277, 243),
+ Xor(148(243, 245), 148(277, 243))]
+Checking 20220112T054215.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/history.log
+
+1071 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/SI.graph
+#nodes=1071
+#edges=23647
+#edge pairs=9152
+#keys=387
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054215.000Z/check_result.txt
+unsat_core: [11(8, 15), 11(21, 8), Xor(11(8, 15), 11(21, 8))]
+Checking 20220112T054300.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/history.log
+
+1035 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/SI.graph
+#nodes=1035
+#edges=17959
+#edge pairs=6602
+#keys=348
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054300.000Z/check_result.txt
+unsat_core: [8(4, 6), 8(13, 4), Xor(8(4, 6), 8(13, 4))]
+Checking 20220112T054346.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/history.log
+
+1039 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/SI.graph
+#nodes=1039
+#edges=21240
+#edge pairs=7718
+#keys=362
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054346.000Z/check_result.txt
+unsat_core: [15(19, 4), 15(4, 17), Xor(15(4, 17), 15(19, 4))]
+Checking 20220112T054434.000Z
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/history.log
+
+1038 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/SI.graph
+#nodes=1038
+#edges=20167
+#edge pairs=6577
+#keys=364
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/20220112T054434.000Z/check_result.txt
+unsat_core: [Not(9(6, 6)), 9(6, 7), 9(7, 6)]
+Checking latest
+jepsen_log_file = /home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/latest/history.edn
+poly_graph_file = /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/latest/SI.graph
+analysis_file = /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/latest/history.log
+
+wrote history into /home/windkl/git_repos/jepsen_data/Analysis_logs/final2/no_nemesis_FT_noreplace/latest/history.log
+
+1038 txns in total
+wrote PolyGraph into /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/latest/SI.graph
+#nodes=1038
+#edges=20167
+#edge pairs=6577
+#keys=364
+load SSG from /home/windkl/git_repos/jepsen_data/graphs/final2/no_nemesis_FT_noreplace/latest/SI.graph
+/home/windkl/git_repos/jepsen_data/jepsen_logs/final2/no_nemesis_FT_noreplace/latest/check_result.txt
+unsat_core: [Not(9(6, 6)), 9(6, 7), 9(7, 6)]

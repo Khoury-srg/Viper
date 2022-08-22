@@ -1,0 +1,28 @@
+# PREFIX: &prefix "/home/spmars4/git_repos/CobraPlus/jepsen_data"
+# JEPSEN_LOG_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/jepsen_logs"
+# GRAPH_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/graphs"
+# ANALYSIS_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/Analysis_logs"
+
+PREFIX: &prefix "/CobraPlus/jepsen_data"
+JEPSEN_LOG_DIR: "/CobraPlus/jepsen_data/jepsen_logs"
+GRAPH_DIR: "/CobraPlus/jepsen_data/graphs"
+ANALYSIS_DIR: "/CobraPlus/jepsen_data/Analysis_logs"
+
+# PREFIX: &prefix "/home/spmars4/git_repos/CobraPlus/viper"
+# JEPSEN_LOG_DIR: "/home/spmars4/git_repos/CobraPlus/viper/jepsen_logs"
+# GRAPH_DIR: "/home/spmars4/git_repos/CobraPlus/viper/graphs"
+# ANALYSIS_DIR: "/home/spmars4/git_repos/CobraPlus/viper/Analysis_logs"
+
+# the configs may be overrided by the command line args
+# WORKLOAD: "rra" # range mode
+# 0-false, 1-true
+DEBUG: false
+REGENERATE: true
+#SESSION_ORDER: false
+HASFINAL: false # rubis, twitter, tpcc
+# --------Algorithm------
+# 0-Z3GSI, 1-Z3 0-1, 2-MonoSATEdgeWeight, 3-MonoSATEdgeWeight Optimzied, 4-BCGraph,
+# 5-BCGraphOptimized,
+# 6-BCGraphOptimized + pruning
+# 7-BE19, 8-Jepsen
+ALGO: 6
