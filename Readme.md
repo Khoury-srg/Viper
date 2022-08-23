@@ -41,10 +41,10 @@ tar xzvf history.tgz
 #### Step 2: Configure the log path
 Modify the `config.yaml` as follows:
 ```bash
-PREFIX: &prefix "/Viper/jepsen_data"
-JEPSEN_LOG_DIR: "/Viper/jepsen_data/jepsen_logs"
-GRAPH_DIR: "/Viper/jepsen_data/graphs"
-ANALYSIS_DIR: "/Viper/jepsen_data/Analysis_logs"
+PREFIX: &prefix "/Viper/history_data"
+LOG_DIR: "/Viper/history_data/logs"
+GRAPH_DIR: "/Viper/history_data/graphs"
+ANALYSIS_DIR: "/Viper/history_data/Analysis_logs"
 ```
 
 #### Step 3: Build the docker image and start the container 
