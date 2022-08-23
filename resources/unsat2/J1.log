@@ -1,1 +1,0 @@
-{:type :ok :f :txn :value [[:w 79 2 true] [:r 77 5 false]]}
