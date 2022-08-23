@@ -267,19 +267,15 @@ def create_knowngraph(full_history, histories, strong_session:bool=False):
 
 def construct_graph_from_log(logs_folder, graphs_folder, analysis_folder,
                               sub_dir, strong_session=False, hasFinal=False):
-    JEPSEN_LOG_SUB_DIR, JEPSEN_LOG_FILE, \
+    LOG_SUB_DIR, LOG_FILE, \
     POLY_GRAPH_SUB_DIR, POLY_GRAPH_FILE, \
     ANALYSIS_SUB_DIR, ANALYSIS_FILE \
         = utils.create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir)
-    # print("JEPSEN_LOG_FILE = %s\n"
-    #       "POLY_GRAPH_FILE = %s\n"
-    #       "ANALYSIS_FILE = %s\n"
-    #       % (JEPSEN_LOG_FILE, POLY_GRAPH_FILE, ANALYSIS_FILE))
 
     profiler = Profiler.instance()
     profiler.startTick("parsing")
 
-    with open(JEPSEN_LOG_FILE) as f:
+    with open(LOG_FILE) as f:
         lines = f.readlines()
     lines = list(filter(lambda line: ":ok" in line, lines))
     full_history, histories = parse(lines)
@@ -300,10 +296,3 @@ def construct_graph_from_log(logs_folder, graphs_folder, analysis_folder,
     # profiler.startTick("IO")
     # profiler.endTick("IO")
     return g, con
-
-# if __name__ == '__main__':
-#     logs_folder = "../jepsen_logs/"
-#     graphs_folder = "../graphs/"
-#
-#     filename = "jepsen_append"
-#     construct_graph_from_log('%s%s.log' % (logs_folder, filename), '%s%s.graph' % (graphs_folder, filename))

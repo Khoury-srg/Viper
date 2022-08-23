@@ -18,13 +18,13 @@ done;
 # dbcop/BE19
 # w/o docker
 # python3.8 cobraplus_backend/cobraplus/ae/run_BE19.py \
-#     --log_folder $VIPER_HOME/jepsen_data/jepsen_logs/fig8 \
+#     --log_folder $VIPER_HOME/history_data/logs/fig8 \
 #     --output_folder  $VIPER_HOME/BE19_output --dbcop $VIPER_HOME/resources/dbcop/target/debug/dbcop  \
 #     --translator $VIPER_HOME/resources/BE19_translator/target/debug/translator
 
 # using docker
 python3.8 cobraplus_backend/cobraplus/ae/run_BE19.py \
-    --log_folder $VIPER_HOME/jepsen_data/jepsen_logs/fig8 \
+    --log_folder $VIPER_HOME/history_data/logs/fig8 \
     --output_folder  $VIPER_HOME/BE19_output --dbcop /dbcop/target/debug/dbcop  \
     --translator /BE19_translator/target/debug/translator
 

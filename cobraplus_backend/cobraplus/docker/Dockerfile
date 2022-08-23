@@ -48,4 +48,4 @@ RUN make -j8 && \
 WORKDIR /
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-ENV VIPER_HOME /CobraPlus
+ENV VIPER_HOME /Viper

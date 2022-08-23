@@ -8,7 +8,7 @@ OUTPUT_FILE=fig9.txt
 rm $OUTPUT_FILE
 
 # elle
-python3.8 cobraplus_backend/cobraplus/ae/run_elle.py --log_folder $VIPER_HOME/jepsen_data/jepsen_logs/fig9 --perf_file fig9.txt \
+python3.8 cobraplus_backend/cobraplus/ae/run_elle.py --log_folder $VIPER_HOME/history_data/logs/fig9 --perf_file fig9.txt \
     --elle $VIPER_HOME/resources/elle-cli-0.1.3/target/elle-cli-0.1.3-standalone.jar
 
 

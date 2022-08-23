@@ -75,7 +75,7 @@ if __name__ == '__main__':
     ALGO = -1
     ALGO = YAML_CONFIG['ALGO'] if args.algo == -1 else args.algo
     graph_cls, checker_cls, graph_constructor = get_algo(ALGO)
-    log_full_dir = os.path.join(YAML_CONFIG['JEPSEN_LOG_DIR'], SUB_DIR)  # the dir which stores the logs and exported table files
+    log_full_dir = os.path.join(YAML_CONFIG['LOG_DIR'], SUB_DIR)  # the dir which stores the logs and exported table files
     check_result_file = os.path.join(log_full_dir,
                                      "check_result.txt")  # after finishing checking, write the checking result into this file
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     profiler.startTick("e2e")
 
     if ALGO in [3, 5]:
-        g, conn = graph_constructor(YAML_CONFIG['JEPSEN_LOG_DIR'], YAML_CONFIG['GRAPH_DIR'],
+        g, conn = graph_constructor(YAML_CONFIG['LOG_DIR'], YAML_CONFIG['GRAPH_DIR'],
                                     YAML_CONFIG['ANALYSIS_DIR'],
                                     SUB_DIR,
                                     args.strong_session,
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     elif ALGO in [0, 4]:
         # build a graph and output it to a file
         if YAML_CONFIG['REGENERATE']:
-            G = graph_constructor(YAML_CONFIG['JEPSEN_LOG_DIR'], YAML_CONFIG['GRAPH_DIR'], YAML_CONFIG['ANALYSIS_DIR'],
+            G = graph_constructor(YAML_CONFIG['LOG_DIR'], YAML_CONFIG['GRAPH_DIR'], YAML_CONFIG['ANALYSIS_DIR'],
                                   SUB_DIR,
                                   args.strong_session,
                                   YAML_CONFIG['HASFINAL'])
@@ -132,7 +132,7 @@ if __name__ == '__main__':
         checker = checker_cls(check_result_file)
 
         try:
-            g, conn = graph_constructor(YAML_CONFIG['JEPSEN_LOG_DIR'], YAML_CONFIG['GRAPH_DIR'],
+            g, conn = graph_constructor(YAML_CONFIG['LOG_DIR'], YAML_CONFIG['GRAPH_DIR'],
                                     YAML_CONFIG['ANALYSIS_DIR'],
                                     SUB_DIR,
                                     args.strong_session, # if strong session, no requirement of heuristic of topo sorting??
@@ -169,7 +169,7 @@ if __name__ == '__main__':
     elif ALGO in [1, 2]: # 1, 2
         # build a graph and output it to a file
         if YAML_CONFIG['REGENERATE']:
-            G = graph_constructor(YAML_CONFIG['JEPSEN_LOG_DIR'], YAML_CONFIG['GRAPH_DIR'], YAML_CONFIG['ANALYSIS_DIR'],
+            G = graph_constructor(YAML_CONFIG['LOG_DIR'], YAML_CONFIG['GRAPH_DIR'], YAML_CONFIG['ANALYSIS_DIR'],
                                   SUB_DIR,
                                   args.strong_session,
                                   YAML_CONFIG['HASFINAL'])

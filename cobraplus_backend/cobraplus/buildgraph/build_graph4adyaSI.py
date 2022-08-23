@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-# example run: python -m cobraplus.poly.construct_graph4wr --consider-final-wr --sub-dir wr/10-100-20
-# --jepsen-log-dir resources/jepsen_logs --graph-dir resources/graphs
-# --analysis-dir resources/Analysis_logs --table-count 3
 import argparse
 import os
 import sys
@@ -52,7 +49,7 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
                              sub_dir:str, strong_session:bool=False, hasFinal:bool=False):
     """
     construct graph from log without supporting range query
-    :param jepsen_logs_folder:
+    :param logs_folder:
     :param graphs_folder:
     :param sub_dir: like "wr/10-100-10", wr_cyclic_10
     :param consider_final_wr:
@@ -61,20 +58,16 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
     history.log is the transaction log of all the committed transactions(failed and info txns are filtered).
     It contains all the nodes of the polygraph.
     """
-    JEPSEN_LOG_SUB_DIR, JEPSEN_LOG_FILE, \
+    LOG_SUB_DIR, LOG_FILE, \
     POLY_GRAPH_SUB_DIR, POLY_GRAPH_FILE, \
     ANALYSIS_SUB_DIR, ANALYSIS_FILE \
         = utils.compute_file_path(logs_folder, sub_dir, graphs_folder, analysis_folder, 'SI')
-    # print("JEPSEN_LOG_FILE = %s\n"
-    #       "POLY_GRAPH_FILE = %s\n"
-    #       "ANALYSIS_FILE = %s\n"
-    #       % (JEPSEN_LOG_FILE, POLY_GRAPH_FILE, ANALYSIS_FILE))
 
     utils.mk_dirs(POLY_GRAPH_SUB_DIR, ANALYSIS_SUB_DIR)  # create corresponding dirs in case of not existing
     profiler = Profiler.instance()
 
-    # read jepsen log, filter
-    normal_logs, final_txn_log = load_logs(JEPSEN_LOG_SUB_DIR, hasFinal)
+    # read log, filter
+    normal_logs, final_txn_log = load_logs(LOG_SUB_DIR, hasFinal)
 
     # parse, get the history and write it to file
     # no downgrade
@@ -201,8 +194,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--consider-final-wr", action="store_true",
                         help="whether consider the final WR dependency")
-    parser.add_argument("--jepsen-log-dir", type=str,
-                        default="resources/jepsen_logs", help="the folder of jepsen logs")
+    parser.add_argument("--log-dir", type=str, help="the folder of logs")
     parser.add_argument("--sub-dir", type=str, help="which sub dir the log file is located in under the log folder")
     parser.add_argument("--graph-dir", type=str, default="resources/graphs",
                         help="the folder of all the graph files")
@@ -212,7 +204,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    construct_graph_from_log(args.jepsen_log_dir, args.graph_dir, args.analysis_dir, args.sub_dir,
+    construct_graph_from_log(args.log_dir, args.graph_dir, args.analysis_dir, args.sub_dir,
                              args.consider_final_wr, args.table_count)
 
 

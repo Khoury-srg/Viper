@@ -52,7 +52,6 @@ def run_BE19(dbcop_path, translator_path, log_folder, output_folder):
         if not os.path.exists(BE19_output_dir_sat):
             os.mkdir(BE19_output_dir_sat)
 
-        # OLD_DBCOP="/home/windkl/git_repos/CobraHome/CobraVerifier/bsl/BE19/dbcop-master/target/debug/dbcop"
         NEW_DBCOP = dbcop_path
         cmd = [NEW_DBCOP, "verify", "--cons", "si",
                             "--out_dir", BE19_output_dir,

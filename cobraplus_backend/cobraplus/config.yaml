@@ -1,20 +1,9 @@
-# PREFIX: &prefix "/home/spmars4/git_repos/CobraPlus/jepsen_data"
-# JEPSEN_LOG_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/jepsen_logs"
-# GRAPH_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/graphs"
-# ANALYSIS_DIR: "/home/spmars4/git_repos/CobraPlus/jepsen_data/Analysis_logs"
-
-PREFIX: &prefix "/CobraPlus/jepsen_data"
-JEPSEN_LOG_DIR: "/CobraPlus/jepsen_data/jepsen_logs"
-GRAPH_DIR: "/CobraPlus/jepsen_data/graphs"
-ANALYSIS_DIR: "/CobraPlus/jepsen_data/Analysis_logs"
-
-# PREFIX: &prefix "/home/spmars4/git_repos/CobraPlus/viper"
-# JEPSEN_LOG_DIR: "/home/spmars4/git_repos/CobraPlus/viper/jepsen_logs"
-# GRAPH_DIR: "/home/spmars4/git_repos/CobraPlus/viper/graphs"
-# ANALYSIS_DIR: "/home/spmars4/git_repos/CobraPlus/viper/Analysis_logs"
+PREFIX: &prefix "/Viper/history_data"
+LOG_DIR: "/Viper/history_data/logs"
+GRAPH_DIR: "/Viper/history_data/graphs"
+ANALYSIS_DIR: "/Viper/history_data/Analysis_logs"
 
 # the configs may be overrided by the command line args
-# WORKLOAD: "rra" # range mode
 # 0-false, 1-true
 DEBUG: false
 REGENERATE: true

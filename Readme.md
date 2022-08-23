@@ -18,10 +18,9 @@ We prepared a docker file for easier reproduction in the `cobraplus_backend/cobr
 
 Download `Viper`:
 ```bash
-git clone git@github.com:naizhengtan/CobraPlus.git
-cd CobraPlus
+git clone https://github.com/Khoury-srg/Viper.git
+cd Viper
 export VIPER_HOME=<YOUR_VIPER_PATH>
-git checkout origin/eurosys
 ```
 
 Prepare input data:
@@ -42,10 +41,10 @@ tar xzvf history.tgz
 #### Step 2: Configure the log path
 Modify the `config.yaml` as follows:
 ```bash
-PREFIX: &prefix "/CobraPlus/jepsen_data"
-JEPSEN_LOG_DIR: "/CobraPlus/jepsen_data/jepsen_logs"
-GRAPH_DIR: "/CobraPlus/jepsen_data/graphs"
-ANALYSIS_DIR: "/CobraPlus/jepsen_data/Analysis_logs"
+PREFIX: &prefix "/Viper/jepsen_data"
+JEPSEN_LOG_DIR: "/Viper/jepsen_data/jepsen_logs"
+GRAPH_DIR: "/Viper/jepsen_data/graphs"
+ANALYSIS_DIR: "/Viper/jepsen_data/Analysis_logs"
 ```
 
 #### Step 3: Build the docker image and start the container 
@@ -59,7 +58,7 @@ If you want to build from the Dockerfile:
 
 Then launch a container. `VNC_PASSWORD` is the password you will use to connect to the VNC server later.
 ```bash
-sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321 -v $VIPER_HOME:/CobraPlus -v /dev/shm:/dev/shm  windkl/viper:latest 
+sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321 -v $VIPER_HOME:/Viper -v /dev/shm:/dev/shm  windkl/viper:latest 
 ```
 
 
@@ -67,7 +66,7 @@ sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321
 1. Open VNC Viewer, configure the IP address and enter the VNC_PASSWORD above to connect to the docker contaienr. Make sure that the TCP port 5900 is open on the Ubuntu machine.
 2. Open System tools -> LXTerminal.
 3. ```bash
-    cd /CobraPlus 
+    cd /Viper 
     export VIPER_HOME=$PWD
     ```
 
@@ -97,7 +96,7 @@ python3.8 -m cobraplus_backend.cobraplus.main_allcases --config_file cobraplus_b
 `--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in and `exp_name` is the name of this run.
 
 
-If you generate histories using `CobraBench` or `Jepsen` by yourself, you need to organzie the 
+If you generate histories using `ViperBench` or `Jepsen` by yourself, you need to organzie the 
 file hierarchy as follows:
 create `PREFIX`, `JEPSEN_LOG_DIR` folders as those in `config.yaml` if not exists and make sure `JEPSEN_LOG_DIR` is a subfolder of `PREFIX`. And then store your history logs in `JEPSEN_LOG_DIR`. 
 

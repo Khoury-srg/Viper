@@ -414,13 +414,13 @@ def compute_file_path(logs_folder, sub_dir, graphs_folder, analysis_folder, isol
     """
     isolation_level2graph_file = {'serializability': 'poly.graph',
                                   'SI': 'SI.graph'}
-    jepsen_log_sub_dir = "%s/%s" % (logs_folder, sub_dir)
-    jepsen_log_file = "%s/history.edn" % jepsen_log_sub_dir
+    log_sub_dir = "%s/%s" % (logs_folder, sub_dir)
+    log_file = "%s/history.edn" % log_sub_dir
     poly_graph_sub_dir = "%s/%s" % (graphs_folder, sub_dir)
     poly_graph_file = f"{poly_graph_sub_dir}/{isolation_level2graph_file[isolation_level]}"
     analysis_sub_dir = "%s/%s" % (analysis_folder, sub_dir)
     analysis_file = "%s/history.log" % analysis_sub_dir
-    return jepsen_log_sub_dir, jepsen_log_file, poly_graph_sub_dir, poly_graph_file, analysis_sub_dir, analysis_file
+    return log_sub_dir, log_file, poly_graph_sub_dir, poly_graph_file, analysis_sub_dir, analysis_file
 
 
 def convert_readv(v):
@@ -508,7 +508,7 @@ def ci(i):
     return 2*i + 2
 
 
-def load_logs(JEPSEN_LOG_DIR, hasFinal=True):
+def load_logs(LOG_DIR, hasFinal=True):
     """
     final_state_log: the log content of final txn
     other_logs: log contents of other threads
@@ -516,9 +516,9 @@ def load_logs(JEPSEN_LOG_DIR, hasFinal=True):
     other_logs = []
     final_state_log = None
 
-    files = os.listdir(JEPSEN_LOG_DIR)
+    files = os.listdir(LOG_DIR)
     for file in files: # J14.log
-        file_full_path = os.path.join(JEPSEN_LOG_DIR, file)
+        file_full_path = os.path.join(LOG_DIR, file)
         if not os.path.isdir(file_full_path) and (file.startswith("J") or file.startswith("history.edn")):
             # only open text files, ignore dirs
             with open(file_full_path) as f:
@@ -536,17 +536,17 @@ def load_logs(JEPSEN_LOG_DIR, hasFinal=True):
 
 
 def create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir):
-    jepsen_log_sub_dir, jepsen_log_file, \
+    log_sub_dir, log_file, \
     poly_graph_sub_dir, poly_graph_file, \
     analysis_sub_dir, analysis_file \
         = compute_file_path(logs_folder, sub_dir, graphs_folder, analysis_folder, 'SI')
-    # print("jepsen_log_file = %s\n"
+    # print("log_file = %s\n"
     #       "poly_graph_file = %s\n"
     #       "analysis_file = %s\n"
-    #       % (jepsen_log_file, poly_graph_file, analysis_file))
+    #       % (log_file, poly_graph_file, analysis_file))
 
     mk_dirs(poly_graph_sub_dir, analysis_sub_dir)  # create corresponding dirs in case of not existing
 
-    return jepsen_log_sub_dir, jepsen_log_file, \
+    return log_sub_dir, log_file, \
             poly_graph_sub_dir, poly_graph_file, \
             analysis_sub_dir, analysis_file

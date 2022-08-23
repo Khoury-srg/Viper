@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-# example run: python -m cobraplus.poly.construct_graph4wr --consider-final-wr --sub-dir wr/10-100-20
-# --jepsen-log-dir resources/jepsen_logs --graph-dir resources/graphs
-# --analysis-dir resources/Analysis_logs --table-count 3
 import argparse
 import os
 import sys
@@ -289,7 +286,7 @@ def construct_graph_from_log(logs_folder, graphs_folder, analysis_folder,
                              sub_dir, strong_session, hasFinal):
     """
     construct graph from log without supporting range query
-    :param jepsen_logs_folder:
+    :param logs_folder:
     :param graphs_folder:
     :param sub_dir: like "wr/10-100-10", wr_cyclic_10
     :param consider_final_wr:
@@ -298,13 +295,13 @@ def construct_graph_from_log(logs_folder, graphs_folder, analysis_folder,
     history.log is the transaction log of all the committed transactions(failed and info txns are filtered).
     It contains all the nodes of the polygraph.
     """
-    jepsen_log_sub_dir, jepsen_log_file, \
+    log_sub_dir, log_file, \
     poly_graph_sub_dir, poly_graph_file, \
     analysis_sub_dir, analysis_file = \
         utils.create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir)
-    # read jepsen log, filter
-    normal_logs, final_txn_log = load_logs(jepsen_log_sub_dir, hasFinal)
-    # with open(jepsen_log_file) as f:
+    # read log, filter
+    normal_logs, final_txn_log = load_logs(log_sub_dir, hasFinal)
+    # with open(log_file) as f:
     #     lines = f.readlines()
     # lines = list(filter(lambda line: ":ok" in line, lines))
 
@@ -331,24 +328,5 @@ def construct_graph_from_log(logs_folder, graphs_folder, analysis_folder,
 
     return g, con
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--jepsen-log-dir", type=str,
-                        default="/home/spmars4/git_repos/jepsen_data/jepsen_logs",
-                        help="the folder of jepsen logs")
-    parser.add_argument("--sub-dir", type=str,
-                        help="which sub dir the log file is located in under the log folder")
-    parser.add_argument("--graph-dir", type=str,
-                        default="/home/spmars4/git_repos/jepsen_data/graphs",
-                        help="the folder of all the graph files")
-    parser.add_argument("--analysis-dir", type=str,
-                        default="/home/spmars4/git_repos/jepsen_data/Analysis_logs",
-                        help="the folder of all the graph files")
-    parser.add_argument("--workload", type=str, default='rra')
-
-    args = parser.parse_args()
-
-    construct_graph_from_log(args.jepsen_log_dir, args.graph_dir, args.analysis_dir, args.sub_dir, args.workload)
 
 

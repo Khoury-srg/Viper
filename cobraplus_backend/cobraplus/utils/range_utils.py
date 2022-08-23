@@ -63,17 +63,7 @@ def is_null(value):
 def extract_dead_value(value):
     assert isinstance(value, int)
     return value
-    # if not is_dead_value(value):
-    #     return value
-    # cheng's bench
 
-    # my jepsen format
-    # if isinstance(value, int):
-    #     return value & 0x3FFFFFFFFFFFFFFF
-    # elif isinstance(value, str):
-    #     return value[1:]
-    # else:
-    #     assert False
 
 
 class ValueType(Enum):
