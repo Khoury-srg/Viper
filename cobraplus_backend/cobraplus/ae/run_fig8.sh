@@ -27,6 +27,7 @@ for(( i=0;i<${#EXPNAMES[@]};i++)) do
 done;
 
 # GSI_Z3
+# natural baselines are too slow to run check large histories, to save time, only run for the first 5 histories. They all time out for histories > 1k in my test.
 # for(( i=0;i<${#EXPNAMES[@]};i++)) do
 for(( i=0;i<5;i++)) do
     timeout $TIMEOUT python3.8 -m cobraplus_backend.cobraplus.main_allcases --config_file cobraplus_backend/cobraplus/config.yaml --algo 0 \
