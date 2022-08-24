@@ -8,9 +8,6 @@ import yaml
 from cobraplus_backend.cobraplus.examples.algo import get_algo
 from cobraplus_backend.cobraplus.utils.profiler import Profiler
 from cobraplus_backend.cobraplus.utils.exceptions import RejectException
-
-# example run: cd into cobraplus_backend dir and run
-# python -m cobraplus.examples.wr_range_AdyaSI_main --sub-dir tidb_optimistic/tidb-leader-killing/20220224T053003.000Z -r --workload rra --table-count 3
 from cobraplus_backend.cobraplus.utils.utils import ci, si
 
 

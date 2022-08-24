@@ -72,7 +72,7 @@ sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321
 
 #### Step 5: Run the experiments
 
-Run the python scripts in the folder `./cobraplus_backend/cobraplus/ae`. Each script corresponds to a figure in the paper and will generate a txt file to store the results, e.g. `run_fig8.sh` will generate `fig8.txt` in `VIPER_HOME`. 
+Run the python scripts in the folder `./cobraplus_backend/cobraplus/ae`. Each script corresponds to a figure in the paper and will generate a txt file to store the results, e.g. `run_fig8.sh` will generate `fig8.txt` in `VIPER_HOME`. If the result of a particular algorithms on a benchmark does not show in the txt file, it represents that the algorithms times out.
 
 ```bash
 cd $VIPER_HOME

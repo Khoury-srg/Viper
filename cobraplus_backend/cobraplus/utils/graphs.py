@@ -491,7 +491,6 @@ class ArgumentedPolyGraph:
         Q = [u for u in range(1, G.n_nodes+1) if in_degrees[u] == 0]
         sorted_arr = []
 
-        # FIXME: sorted_array has a different size with G.n_nodes
         while Q:
             u = Q.pop(0)
             sorted_arr.append(u)
