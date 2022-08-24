@@ -61,6 +61,7 @@ If you want to build from the Dockerfile:
 
 Then launch a container. `VNC_PASSWORD` is the password you will use to connect to the VNC server later.
 ```bash
+# Note if you logged out after setting the `VIPER_HOME`, you need to reset the environment before executing this command
 sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321 -v $VIPER_HOME:/Viper -v /dev/shm:/dev/shm  windkl/viper:latest 
 ```
 
