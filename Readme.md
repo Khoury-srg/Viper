@@ -28,6 +28,8 @@ Download `history.tgz` from [Google Drive](https://drive.google.com/file/d/1c5A5
 You may download it manually or using following statements:
 ```bash
 pip3 install gdown
+
+# you may need to logout and then login to use the command below
 gdown https://drive.google.com/uc?id=1c5A5tV3G_CxZJNisDAKx4cmDFUZsfoFp
 
 mv history.tgz $VIPER_HOME/
