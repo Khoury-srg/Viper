@@ -97,7 +97,7 @@ To run `Viper` for a single history instead of using the provided scripts:
 python3.8 -m cobraplus_backend.cobraplus.main_allcases --config_file cobraplus_backend/cobraplus/config.yaml --algo 6 --sub_dir cheng/normal-Cheng-5000txns-8oppertxn-threads24-I0-D0-R50-U50-RANGEE0-2022-08-19-15-42-40/jepsen --perf_file ./test_perf.txt --exp_name test_run
 ```
 
-`--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in and `exp_name` is the name of this run.
+`--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in, and `exp_name` is the identifer of this run and can be set to any string.
 
 
 If you generate histories using `ViperBench` or `Jepsen` by yourself, you need to organzie the 
