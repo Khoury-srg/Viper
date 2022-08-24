@@ -27,7 +27,7 @@ Prepare input data:
 Download `history.tgz` from [Google Drive](https://drive.google.com/file/d/1c5A5tV3G_CxZJNisDAKx4cmDFUZsfoFp/view?usp=sharing) to `$VIPER_HOME`.
 You may download it manually or using following statements:
 ```bash
-pip install gdown
+pip3 install gdown
 gdown https://drive.google.com/uc?id=1c5A5tV3G_CxZJNisDAKx4cmDFUZsfoFp
 
 mv history.tgz $VIPER_HOME/
