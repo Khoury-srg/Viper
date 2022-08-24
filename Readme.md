@@ -6,7 +6,7 @@ This is the root directory of a research project, Viper. *Viper: A Fast Snapshot
 If you want to generate new histories, see [Viper bench](https://github.com/Khoury-srg/ViperBench).
 
 ## How to run?
-For artifact evaluation, you may contact us to setup google cloud VMs for you.
+For artifact evaluation, you may contact us to setup google cloud VMs for you by leaving hotcrp comment.
 
 ### Using Docker (Recommended)
 We prepared a docker file for easier reproduction in the `cobraplus_backend/cobraplus/docker` folder. 
