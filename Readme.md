@@ -89,7 +89,7 @@ cd $VIPER_HOME
 ```
 
 `dbcop-BE19`  may encounter out of memory error as reported in the paper and hence the `run_BE19.sh` may not exit normally. The checking results of `dbcop` is stored in `$VIPER_HOME/BE19_output`. The results of `dbcop-BE19` and `dbcop-SAT` are outputed as a json file in the `$VIPER_HOME/BE19_output/XXX/output_dir` and `$VIPER_HOME/BE19_output/XXX/output_sat_dir` folder respectively, where `XXX` is the history name. 
-You may check the value of `sat` and `duration` in those json files to see whether the give history is satifiable and how long it takes to do the checking.
+You may check the value of `sat` and `duration` in those json files to see whether the give history is satifiable and how long it takes to do the checking. The results of Viper are stored in `be19.txt`.
 
 ##### Run `Viper` for a single history
 To run `Viper` for a single history instead of using the provided scripts:
