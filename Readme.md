@@ -55,8 +55,9 @@ ANALYSIS_DIR: "/Viper/history_data/Analysis_logs"
     $ cd $VIPER_HOME/
     $ sudo docker pull windkl/viper:latest 
 
-If you want to build from the Dockerfile:
+Or if you want to build from the Dockerfile:
 
+    $ cd $VIPER_HOME/
     $ sudo docker build -t windkl/viper:latest . --no-cache -f cobraplus_backend/cobraplus/docker/Dockerfile
 
 Then launch a container. `VNC_PASSWORD` is the password you will use to connect to the VNC server later.
