@@ -1,5 +1,5 @@
 # Viper
-This is the root directory of a research project, Viper. [Viper: A Fast Snapshot Isolation Checker]() is a research paper studying checking snapshot isolation of black-box databases. It consists of two components:
+This is the root directory of a research project, Viper. *Viper: A Fast Snapshot Isolation Checker* is a research paper studying checking snapshot isolation of black-box databases. It consists of two components:
 * [Viper](https://github.com/Khoury-srg/Viper): checks snapshot isolation of a set of transactions (called a _history_)
 * [Viper bench](https://github.com/Khoury-srg/ViperBench): database clients that interact with a black-box database and generate histories
 
