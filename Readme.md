@@ -99,10 +99,10 @@ python3.8 -m cobraplus_backend.cobraplus.main_allcases --config_file cobraplus_b
 
 `--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in, and `exp_name` is the identifer of this run and can be set to any string.
 
-
+---
 If you generate histories using `ViperBench` or `Jepsen` by yourself, you need to organzie the 
 file hierarchy as follows:
-create `PREFIX`, `JEPSEN_LOG_DIR` folders as those in `config.yaml` if not exists and make sure `JEPSEN_LOG_DIR` is a subfolder of `PREFIX`. And then store your history logs in `JEPSEN_LOG_DIR`. 
+create `PREFIX`, `LOG_DIR` folders as those in `config.yaml` if not exists and make sure `LOG_DIR` is a subfolder of `PREFIX`. And then store your history logs in `LOG_DIR`. 
 
 ### Without using Docker
 #### Pre-requisites for use
