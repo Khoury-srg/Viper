@@ -5,6 +5,21 @@ This is the root directory of a research project, Viper. *Viper: A Fast Snapshot
 
 If you want to generate new histories, see [Viper bench](https://github.com/Khoury-srg/ViperBench).
 
+## Project organization
+- cobraplus_backend/cobraplus: all the components of Viper.
+    - ae: scripts for running experiments. 
+    - buildgraph: build BC-polygraphs and then pass them to checkers for checking.
+    - checker: use SMT solver to check the acyclicity of BC-polygraphs.
+    - utils: some utility functions.
+    - parse: parse text files to histories.
+    - docker: the docker file for building the image. 
+- resources: thirty-party dependencies and tools required in the evaluation.
+    - dbcop: an existing checker for snapshot isolation.
+    - elle: an existing checker for a variety of isolation levels.
+    - monosat and z3: two SAT/SMT solvers.
+    - BE19_translator: a translator for translating ViperBench's histories into `dbcop`'s histories for comparason.
+
+    
 ## How to run?
 For artifact evaluation, you may contact us to setup google cloud VMs for you by leaving hotcrp comment.
 
