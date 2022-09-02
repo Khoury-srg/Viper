@@ -58,16 +58,7 @@ cd $VIPER_HOME
 tar xzvf history.tgz
 ```
 
-#### Step 2: Configure the log path
-Modify the `config.yaml` as follows:
-```bash
-PREFIX: &prefix "/Viper/history_data"
-LOG_DIR: "/Viper/history_data/logs"
-GRAPH_DIR: "/Viper/history_data/graphs"
-ANALYSIS_DIR: "/Viper/history_data/Analysis_logs"
-```
-
-#### Step 3: Build the docker image and start the container 
+#### Step 2: Build the docker image and start the container 
 
     $ cd $VIPER_HOME/
     $ sudo docker pull windkl/viper:latest 
@@ -84,7 +75,7 @@ sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321
 ```
 
 
-#### Step 4: Connect to the VNC server & open the terminal
+#### Step 3: Connect to the VNC server & open the terminal
 1. Open VNC Viewer, configure the IP address and enter the VNC_PASSWORD above to connect to the docker contaienr. Make sure that the TCP port 5900 is open on the Ubuntu machine.
 2. Open System tools -> LXTerminal.
 3. ```bash
@@ -92,7 +83,7 @@ sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321
     export VIPER_HOME=$PWD
     ```
 
-#### Step 5: Run the experiments
+#### Step 4: Run the experiments
 
 Run the python scripts in the folder `./cobraplus_backend/cobraplus/ae`. Each script corresponds to a figure in the paper and will generate a txt file to store the results, e.g. `run_fig8.sh` will generate `fig8.txt` in `VIPER_HOME`. If the result of a particular algorithms on a benchmark does not show in the txt file, it represents that the algorithms times out.
 
@@ -205,4 +196,4 @@ ANALYSIS_DIR: "<VIPER_HOME>/jepsen_data/Analysis_logs"
 Note that the paths of `dbcop` and `translator` need to be specified in `run_BE19.sh` by commenting out the code snippet of `using docker` and uncommenting the snippet of `w/o docker`.
 
 #### Step 5: Run experiments
-Then you may run the experiments the same as the Step 5 in the section of using docker.
+Then you may run the experiments the same as the Step 4 in the section of using docker.
