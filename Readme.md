@@ -186,10 +186,10 @@ cargo build
 
 Modify the `cobraplus_backend/cobraplus/config.yaml` as follows. Note that replace <VIPER_HOME> with your path.
 ```bash
-PREFIX: &prefix "<VIPER_HOME>/jepsen_data"
-JEPSEN_LOG_DIR: "<VIPER_HOME>/jepsen_data/jepsen_logs"
-GRAPH_DIR: "<VIPER_HOME>/jepsen_data/graphs"
-ANALYSIS_DIR: "<VIPER_HOME>/jepsen_data/Analysis_logs"
+PREFIX: &prefix "<VIPER_HOME>/history_data"
+JEPSEN_LOG_DIR: "<VIPER_HOME>/history_data/logs"
+GRAPH_DIR: "<VIPER_HOME>/history_data/graphs"
+ANALYSIS_DIR: "<VIPER_HOME>/history_data/Analysis_logs"
 ```
 
 #### Step 4: Specify the path of `dbcop` and run experiments
