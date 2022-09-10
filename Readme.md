@@ -134,7 +134,7 @@ Install Rust:
     $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 
-#### Step 1: Download Viper and install dependencies
+#### Step 1: Download artifacts and set environment variables
 Same as the Step 1 above.
 
 #### Step 2: Install dependencies
