@@ -8,8 +8,8 @@ OUTPUT_FILE=fig9.txt
 rm $OUTPUT_FILE
 
 # elle
-#python3.8 ae/run_elle.py --log_folder $VIPER_HOME/history_data2/logs/fig9 --perf_file fig9.txt \
-#    --elle $VIPER_HOME/resources/elle-cli-0.1.3/target/elle-cli-0.1.3-standalone.jar
+python3.8 ae/run_elle.py --log_folder $VIPER_HOME/history_data2/logs/fig9 --perf_file fig9.txt \
+   --elle $VIPER_HOME/resources/elle-cli-0.1.3/target/elle-cli-0.1.3-standalone.jar
 
 
 # Viper

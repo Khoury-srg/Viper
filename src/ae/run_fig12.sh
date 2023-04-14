@@ -39,19 +39,19 @@ BlindW-RW-Cheng-5000txns-8oppertxn-threads96-I0-D0-R50-U50-RANGEE0-SI2-2022-09-1
 EXPNAMES=(2k_8 2k_16 2k_24 2k_32 2k_40 2k_48 2k_56 2k_64 2k_72 2k_80 2k_88 2k_96 \
 5k_8 5k_16 5k_24 5k_32 5k_40 5k_48 5k_56 5k_64 5k_72 5k_80 5k_88 5k_96)
 
-OUTPUT_FILE=fig_threads.txt
+OUTPUT_FILE=fig12.txt
 rm $OUTPUT_FILE
 
 TIMEOUT=200s
 
 # Viper
-#for(( i=0;i<${#EXPNAMES[@]};i++)) do
-## for i in "23"; do
-#    timeout $TIMEOUT python3.8 main_allcases.py --config_file config.yaml --algo 6 \
-#    --sub_dir runtime_against_nthreads/${SUBDIRS[i]}/json \
-#    --perf_file $OUTPUT_FILE --exp_name viper_${EXPNAMES[i]} \
-#    --format json
-#done;
+for(( i=0;i<${#EXPNAMES[@]};i++)) do
+# for i in "23"; do
+   timeout $TIMEOUT python3.8 main_allcases.py --config_file config.yaml --algo 6 \
+   --sub_dir runtime_against_nthreads/${SUBDIRS[i]}/json \
+   --perf_file $OUTPUT_FILE --exp_name viper_${EXPNAMES[i]} \
+   --format json
+done;
 
 
 SUBDIRS=(BlindW-RW-Cheng-8100txns-8oppertxn-threads8-keys10000-I0-D0-R50-U50-RANGEE0-SI2-2022-09-14-14-34-01 \
