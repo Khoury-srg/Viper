@@ -5,6 +5,9 @@ This is the root directory of a research project, Viper. *Viper: A Fast Snapshot
 
 If you want to generate new histories, see [Viper bench](https://github.com/Khoury-srg/ViperBench).
 
+<img src="https://www.acm.org/binaries/content/gallery/acm/publications/artifact-review-v1_1-badges/artifacts_available_v1_1.png" width=200><img src="https://www.acm.org/binaries/content/gallery/acm/publications/artifact-review-v1_1-badges/artifacts_evaluated_reusable_v1_1.png" width=200>
+<img src="https://www.acm.org/binaries/content/gallery/acm/publications/artifact-review-v1_1-badges/results_reproduced_v1_1.png" width=200>
+
 ## Project organization
 - cobraplus_backend/cobraplus: all the components of Viper.
     - ae: scripts for running experiments. 
