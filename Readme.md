@@ -46,7 +46,7 @@ export VIPER_HOME=<YOUR_VIPER_PATH>
 ```
 
 Prepare input data:
-Download `history.tgz` from [Google Drive](https://drive.google.com/file/d/1Ngamyqf24cAMrJnvBs6EGfr14Wc6bfgd/view?usp=share_link) to `$VIPER_HOME`.
+Download `history.tgz` from [Google Drive](https://drive.google.com/file/d/1Ngamyqf24cAMrJnvBs6EGfr14Wc6bfgd/view?usp=share_link) to `$VIPER_HOME`. Use the json logs in `json` folder.
 You may download it manually or using following statements:
 ```bash
 pip3 install gdown
