@@ -11,7 +11,7 @@ If you want to generate new histories, see [Viper bench](https://github.com/Khou
 Some path information below is outdated and will be updated soon. 
 
 ## Project organization
-- cobraplus_backend/cobraplus: all the components of Viper.
+- src: all the components of Viper.
     - ae: scripts for running experiments. 
     - buildgraph: build BC-polygraphs and then pass them to checkers for checking.
     - checker: use SMT solver to check the acyclicity of BC-polygraphs.
@@ -94,12 +94,12 @@ Run the python scripts in the folder `./cobraplus_backend/cobraplus/ae`. Each sc
 
 ```bash
 cd $VIPER_HOME
-./cobraplus_backend/cobraplus/ae/run_fig8.sh
-./cobraplus_backend/cobraplus/ae/run_fig9.sh
-./cobraplus_backend/cobraplus/ae/run_fig10.sh
-./cobraplus_backend/cobraplus/ae/run_fig11.sh
-./cobraplus_backend/cobraplus/ae/run_fig14.sh
-./cobraplus_backend/cobraplus/ae/run_BE19.sh 
+./ae/run_fig8.sh
+./ae/run_fig9.sh
+./ae/run_fig10.sh
+./ae/run_fig11.sh
+./ae/run_fig14.sh
+./ae/run_BE19.sh 
 ```
 
 Explanations of calling `run_BE19.sh`: `dbcop-BE19`  may encounter out of memory error as reported in the paper and hence the `run_BE19.sh` may not exit normally. The checking results of `dbcop` is stored in `$VIPER_HOME/BE19_output`. The results of `dbcop-BE19` and `dbcop-SAT` are outputed as a json file in the `$VIPER_HOME/BE19_output/XXX/output_dir` and `$VIPER_HOME/BE19_output/XXX/output_sat_dir` folder respectively, where `XXX` is the history name. 
@@ -108,7 +108,7 @@ You may check the value of `sat` and `duration` in those json files to see wheth
 ##### Run `Viper` for a single history
 To run `Viper` for a single history instead of using the provided scripts:
 ```bash
-python3.8 -m cobraplus_backend.cobraplus.main_allcases --config_file cobraplus_backend/cobraplus/config.yaml --algo 6 --sub_dir cheng/normal-Cheng-5000txns-8oppertxn-threads24-I0-D0-R50-U50-RANGEE0-2022-08-19-15-42-40/jepsen --perf_file ./test_perf.txt --exp_name test_run
+python3.8 -m main_allcases --config_file config.yaml --algo 6 --sub_dir ./fig8/cheng_normal-Cheng-1000txns-8oppertxn-threads24-I0-D0-R50-U50-RANGEE0-SI2-2022-09-11-15-19-14/json --perf_file ./test_perf.txt --exp_name test_run
 ```
 
 `--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in, and `exp_name` is the identifer of this run and can be set to any string.
