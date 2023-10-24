@@ -202,3 +202,5 @@ Note that the paths of `dbcop` and `translator` need to be specified in `run_BE1
 
 #### Step 5: Run experiments
 Then you may run the experiments the same as the Step 4 in the section of using docker.
+
+Note: `Viper` checks Adya SI by default. To check strong session SI, you need to enable session order, which is a parameter of function `construct_graph_from_log`.
