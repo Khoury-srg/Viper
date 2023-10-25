@@ -228,7 +228,6 @@ class ArgumentedPolyGraph:
         assert src != dst
         assert dst != 0
 
-
         if type == 'rw':
             self.edges[src].add((dst, type))
             if dst not in self.edge_type_lookup[src]:
@@ -393,20 +392,15 @@ class ArgumentedPolyGraph:
             edge1, edge2 = edge2, edge1
         return edge1, edge2
 
-    def to_nx_graph(self):
+    @classmethod
+    def to_nx_graph(self, originalG: BCGraph):
         G = nx.DiGraph()
-        G.add_nodes_from(range(1, 2*self.n_nodes+1))
+        G.add_nodes_from(range(1, 2*originalG.n_nodes+1))
 
         edge_list = []
-        for src, dst_nodes in self.edges.items():
-            for dst, type in dst_nodes:
-                if type in ["wr", "ww", 'cb']:
-                    edge_list.append((ci(src), si(dst)))
-                elif type == 'rw':
-                    edge_list.append((si(src), ci(dst)))
-                else:
-                    assert False
-                # f.write("e:%d,%d,%s\n" % (src, dst, type))
+        for src, dst_nodes in originalG.edges.items():
+            for dst in dst_nodes:
+                edge_list.append((src, dst))
 
         G.add_edges_from(edge_list)
         return G
@@ -526,7 +520,7 @@ class ArgumentedPolyGraph:
 
             # assert len(sorted_arr) == G.n_nodes, "Mismatch: topological sort result vs G.n_nodes"
             if len(sorted_arr) != G.n_nodes:
-                nxG = self.to_nx_graph()
+                nxG = self.to_nx_graph(G)
                 cycle = nx.find_cycle(nxG)
                 print(f"found a cycle: {cycle} in known BCgraph")
                 raise RejectException("")
