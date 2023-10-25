@@ -1,6 +1,7 @@
 from __future__ import print_function
 import copy
 import shutil
+from typing import List, Any, Dict
 
 import networkx as nx
 import os
@@ -593,3 +594,15 @@ def create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir):
     return log_sub_dir, log_file, \
             poly_graph_sub_dir, poly_graph_file, \
             analysis_sub_dir, analysis_file
+
+
+def initial_state(write_ops: List[List[Any]]) -> Dict:
+    writes = {}
+    wop: List[Any]
+
+    for wop in write_ops:
+        f, k, v = wop
+        assert f == 'w'
+        writes[k] = v
+
+    return writes

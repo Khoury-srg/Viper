@@ -80,6 +80,7 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
 
     readfrom = defaultdict(set) # Dict[(key, write txn) => a txn set which contains all the txns which read from that write txn],
     wwpairs = {}
+    initial_state = utils.initial_state(full_history[0]['value'])
 
     # wr dependency
     ext_writes = ext_index(full_history, ext_writes_fn) # Dict[key, Dict[value, a set of txns]] # only consider successful writes
@@ -94,21 +95,25 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
         for (v, read_txns) in values2reads.items():
             # current iter: k, v, txns which read v of k
             write_txns = list(utils.get_in(ext_writes, k, v))
+
             if len(write_txns) == 0:  # no txn write this v, it should be read nil
                 # we don't assume v=='nil' to allow prebench, all writes in preBench can be considered by T0
                 # assert is_null(v), f"value {k}: {v} can't find its write"
-                g.add_edges([0], read_txns, 'wr')  # add edges from T0 to all read_txns
-                wr_num_edges += len(read_txns)
+                if k in initial_state and initial_state[k] == v:
+                    g.add_edges([0], read_txns, 'wr')  # add edges from T0 to all read_txns
+                    wr_num_edges += len(read_txns)
 
-                for read_txn in read_txns:
-                    readfrom[(k, 0)].add(read_txn)
+                    for read_txn in read_txns:
+                        readfrom[(k, 0)].add(read_txn)
 
-                # for those txns which also wrote key k:
-                k_writes = k_writes_fn(ext_writes, k)
-                for Tj in read_txns:
-                    tmp = k_writes - {Tj}
-                    g.add_edges([Tj], tmp, 'rw')
-                    rw_num_edges += len(tmp)
+                    # for those txns which also wrote key k:
+                    k_writes = k_writes_fn(ext_writes, k)
+                    for Tj in read_txns:
+                        tmp = k_writes - {Tj}
+                        g.add_edges([Tj], tmp, 'rw')
+                        rw_num_edges += len(tmp)
+                else:
+                    raise RejectException(f"dirty read {k}: {v}")
             elif len(write_txns) == 1:
                 g.add_edges(write_txns, read_txns, 'wr')  # e.g. [3] -> [5,2,1]
                 wr_num_edges += len(read_txns)

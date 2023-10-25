@@ -405,23 +405,6 @@ class ArgumentedPolyGraph:
         G.add_edges_from(edge_list)
         return G
 
-    # def to_graph_tool_graph(self):
-    #     from graph_tool.all import Graph
-    #     profiler = Profiler.instance()
-    #     profiler.startTick("graph conversion")
-    #     G = Graph()
-    #     G.add_vertex(self.n_nodes*2)  # nid starts from 0
-    #     for u in self.edges:
-    #         for v, type in self.edges[u]:
-    #             if type in ["wr", "ww", 'cb']:
-    #                 G.add_edge(ci(u) - 1, si(v) - 1)
-    #             elif type == 'rw':
-    #                 G.add_edge(si(u) - 1, ci(v) - 1)
-    #             else:
-    #                 assert False
-    #     profiler.endTick("graph conversion")
-    #     return G
-
     def topological_sort(self):
         """
         topoligical sort the known graph, ie. using only edges, don't use constraints

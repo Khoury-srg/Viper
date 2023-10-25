@@ -91,12 +91,25 @@ def construct_single_txn4wrrange_json(lines, txn_id):
     parsed_txns = []
     profiler.startTick("other parsing")
     for unparsed_txn in unparsed_txns:
-        unparsed_txn['id'] = txn_id # parsed
-        txn_id += 1
+        if "isInitial" not in unparsed_txn or not unparsed_txn['isInitial']:
+            unparsed_txn['id'] = txn_id # parsed
+            txn_id += 1
+        else:
+            unparsed_txn['id'] = 0
         parsed_txns.append(unparsed_txn)
 
     profiler.endTick("other parsing")
     return parsed_txns, txn_id
+
+
+def is_initial_txn(txn):
+    ret = "isInitial" not in txn
+    ret = ret or not txn["isInitial"]
+    return ret
+
+
+def is_initial_history(history):
+    return len(history) == 1 and is_initial_txn(history[0])
 
 
 def construct_all_txns_json(logs, callback):
@@ -105,10 +118,9 @@ def construct_all_txns_json(logs, callback):
     workload: a string like 'ra'
     callback: a function used to parse each line in lines and get a parse txn
     """
-    all_histories = []
+    session_histories = []
     full_history = [{'id': 0, 'value': None}]  # T0
     # final_txn_index = None
-    profiler = Profiler.instance()
 
     txn_id = 1
     for i in range(len(logs)):
@@ -116,14 +128,17 @@ def construct_all_txns_json(logs, callback):
         #     print(f"Parsing log progress: {i*100.0/len(logs)}%")
 
         lines = logs[i] # a list
-        assert txn_id == len(full_history)
-        history_this_log, txn_id = callback(lines, txn_id)  # line, txn_id, workload, NORMAL_WR = False
+        # assert txn_id == len(full_history)
+        history_this_thread, txn_id = callback(lines, txn_id)  # line, txn_id, workload, NORMAL_WR = False
 
-        full_history.extend(history_this_log)
+        if not is_initial_history(history_this_thread):
+            # assume initial txn only exists in full_history, and doesn't belong to any session/thread
+            full_history[0] = history_this_thread[0]
+        else:
+            full_history.extend(history_this_thread)
+            session_histories.append(history_this_thread)
 
-        all_histories.append(history_this_log)
-
-    return full_history, all_histories
+    return full_history, session_histories
 
 
 def construct_all_txns_edn(logs, callback):

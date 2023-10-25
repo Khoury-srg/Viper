@@ -99,6 +99,7 @@ def main_algo_6_8_12(YAML_CONFIG, SUB_DIR, args, check_result_file, graph_cls, c
         print("#############\n")
     except RejectException as e:
         result = False
+        print(e)
 
     return result
 
