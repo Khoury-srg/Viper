@@ -90,7 +90,7 @@ sudo docker run -d --name viper -p 6080:80 -p 5900:5900 -e VNC_PASSWORD=viper321
 
 #### Step 4: Run the experiments
 
-Run the python scripts in the folder `./cobraplus_backend/cobraplus/ae`. Each script corresponds to a figure in the paper and will generate a txt file to store the results, e.g. `run_fig8.sh` will generate `fig8.txt` in `VIPER_HOME`. If the result of a particular algorithms on a benchmark does not show in the txt file, it represents that the algorithms times out.
+Run the python scripts in the folder `./src/ae`. Each script corresponds to a figure in the paper and will generate a txt file to store the results, e.g. `run_fig8.sh` will generate `fig8.txt` in `VIPER_HOME`. If the result of a particular algorithms on a benchmark does not show in the txt file, it represents that the algorithms times out.
 
 ```bash
 cd $VIPER_HOME/src
@@ -108,10 +108,10 @@ You may check the value of `sat` and `duration` in those json files to see wheth
 ##### Run `Viper` for a single history
 To run `Viper` for a single history instead of using the provided scripts:
 ```bash
-python3.8 -m main_allcases --config_file config.yaml --algo 6 --sub_dir ./fig8/cheng_normal-Cheng-1000txns-8oppertxn-threads24-I0-D0-R50-U50-RANGEE0-SI2-2022-09-11-15-19-14/json --perf_file ./test_perf.txt --exp_name test_run
+python3.8 main_allcases.py --config_file config.yaml --algo 6 --sub_dir ./fig8/cheng_normal-Cheng-1000txns-8oppertxn-threads24-I0-D0-R50-U50-RANGEE0-SI2-2022-09-11-15-19-14/json --perf_file ./test_perf.txt --exp_name test_run
 ```
 
-`--sub_dir` is the relative path of the log folder to the `JEPSEN_LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in, and `exp_name` is the identifer of this run and can be set to any string.
+`--sub_dir` is the relative path of the log folder to the `LOG_DIR` folder. `--perf_file` specifies which file you want to store the results in, and `exp_name` is the identifer of this run and can be set to any string.
 
 ---
 If you generate histories using `ViperBench` or `Jepsen` by yourself, you need to organzie the 
@@ -176,17 +176,6 @@ lein deps
 lein uberjar
 ```
 
-##### install [BE19](https://gitlab.math.univ-paris-diderot.fr/ranadeep/dbcop)
-```bash
-cd $VIPER_HOME/resources/
-tar xzvf BE19_translator.tgz
-cd BE19_translator
-cargo build
-
-cd $VIPER_HOME/resources/dbcop
-cargo build
-```
-
 #### Step 3: Configure logs path
 
 Modify the `cobraplus_backend/cobraplus/config.yaml` as follows. Note that replace <VIPER_HOME> with your path.
@@ -197,10 +186,7 @@ GRAPH_DIR: "<VIPER_HOME>/history_data/graphs"
 ANALYSIS_DIR: "<VIPER_HOME>/history_data/Analysis_logs"
 ```
 
-#### Step 4: Specify the path of `dbcop` and run experiments
-Note that the paths of `dbcop` and `translator` need to be specified in `run_BE19.sh` by commenting out the code snippet of `using docker` and uncommenting the snippet of `w/o docker`.
-
-#### Step 5: Run experiments
+#### Step 4: Run experiments
 Then you may run the experiments the same as the Step 4 in the section of using docker.
 
 Note: `Viper` checks Adya SI by default. To check strong session SI, you need to enable session order, which is a parameter of function `construct_graph_from_log`.
