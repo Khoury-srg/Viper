@@ -103,9 +103,9 @@ def construct_single_txn4wrrange_json(lines, txn_id):
 
 
 def is_initial_txn(txn):
-    ret = "isInitial" not in txn
-    ret = ret or not txn["isInitial"]
-    return ret
+    if "isInitial" not in txn:
+        return False
+    return txn["isInitial"]
 
 
 def is_initial_history(history):
@@ -131,12 +131,12 @@ def construct_all_txns_json(logs, callback):
         # assert txn_id == len(full_history)
         history_this_thread, txn_id = callback(lines, txn_id)  # line, txn_id, workload, NORMAL_WR = False
 
-        if not is_initial_history(history_this_thread):
-            # assume initial txn only exists in full_history, and doesn't belong to any session/thread
-            full_history[0] = history_this_thread[0]
-        else:
+        if not is_initial_history(history_this_thread):  # non-initial txn
             full_history.extend(history_this_thread)
             session_histories.append(history_this_thread)
+        else: # initial txn
+            # assume initial txn only exists in full_history, and doesn't belong to any session/thread
+            full_history[0] = history_this_thread[0]
 
     return full_history, session_histories
 

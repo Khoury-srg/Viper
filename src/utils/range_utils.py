@@ -260,7 +260,7 @@ def ext_index(history, ext_fn):
         history = history[:-1]
     for id in range(1, len(history)): # traverse all the txns except T0 and Tf
         txn = history[id]['value']
-        ext_map = ext_fn(txn) #
+        ext_map = ext_fn(txn)
 
         # print("id=%d\n" % id)
         for (k, v) in ext_map.items():
