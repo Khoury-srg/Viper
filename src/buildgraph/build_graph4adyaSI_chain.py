@@ -69,7 +69,6 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
     # print(f"#Txns={num_txns}")
     g = ArgumentedPolyGraph(num_txns)
 
-    # session order?
     g.set_session_order(histories)
     # session order
     if strong_session:
@@ -80,7 +79,7 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
 
     readfrom = defaultdict(set) # Dict[(key, write txn) => a txn set which contains all the txns which read from that write txn],
     wwpairs = {}
-    initial_state = utils.initial_state(full_history[0]['value'])
+    initial_state = utils.initial_state(full_history)
 
     # wr dependency
     ext_writes = ext_index(full_history, ext_writes_fn) # Dict[key, Dict[value, a set of txns]] # only consider successful writes
@@ -99,7 +98,8 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
             if len(write_txns) == 0:  # no txn write this v, it should be read nil
                 # we don't assume v=='nil' to allow prebench, all writes in preBench can be considered by T0
                 # assert is_null(v), f"value {k}: {v} can't find its write"
-                if k in initial_state and initial_state[k] == v:
+                if initial_state is None or (k in initial_state and initial_state[k] == v):
+                    # initial_state is None: we don't have any information of initial state, assume reads from preBench
                     g.add_edges([0], read_txns, 'wr')  # add edges from T0 to all read_txns
                     wr_num_edges += len(read_txns)
 

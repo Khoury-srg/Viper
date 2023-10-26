@@ -4,6 +4,8 @@ from collections import defaultdict
 from enum import Enum
 from functools import partial
 
+from utils.exceptions import RejectException
+
 
 def convert_rs2dict(rs):
     """
@@ -172,17 +174,17 @@ def ext_writes_fn(txn):
             w_value = get_write_value(mop)
             succ = get_succ(mop)
 
-            if f == 'w':
+            if f == 'w' or f == 'i':
                 if succ:
                     ext_write_map[k] = w_value
-            elif f == 'i':
-                read_v = get_read_v(mop)
-                is_dead = get_is_dead(mop)
-
-                assert succ
-                # to support preBench, we don't assert this any more
-                assert is_null_func(read_v) or is_dead
-                ext_write_map[k] = w_value
+            # elif f == 'i':
+            #     read_v = get_read_v(mop)
+            #     is_dead = get_is_dead(mop)
+            #
+            #     assert succ
+            #     # to support preBench, we don't assert this any more
+            #     assert is_null_func(read_v) or is_dead
+            #     ext_write_map[k] = w_value
             elif f == 'd':
                 assert succ
                 ext_write_map[k] = w_value
@@ -197,7 +199,6 @@ def ext_writes_fn(txn):
 
 def ext_reads_fn(txn):
     """
-    Note the ext functions are only for serializability
     :param txn:
     :return:
     """
@@ -210,24 +211,22 @@ def ext_reads_fn(txn):
         if f == 'range':
             assert 5 <= len(mop) <= 6, "Wrong size of range mop, you add more items?"
             k2, read_values, dead_values = mop[2:5]
-            is_final = mop[-1] if len(mop) == 6 else False
+            for item in read_values:
+                id, val = item['id'], item['val']
+                assert k1 <= id <= k2
 
-            if not is_final:
-                for item in read_values:
-                    id, val = item['id'], item['val']
-                    assert k1 <= id <= k2
+                if id not in ignore:
+                    ext_reads_map[id] = val
+                    ignore.add(id)
 
-                    if id not in ignore:
-                        ext_reads_map[id] = val
-                        ignore.add(id)
+            for item in dead_values:
+                id, val = item['id'], item['val']
+                assert k1 <= id <= k2
 
-                for item in dead_values:
-                    id, val = item['id'], item['val']
-                    assert k1 <= id <= k2
+                if id not in ignore:
+                    ext_reads_map[id] = val
+                    ignore.add(id)
 
-                    if id not in ignore:
-                        ext_reads_map[id] = val
-                        ignore.add(id)
         elif f in ['r', 'i', 'd'] and (k1 not in ignore):
             read_v = get_read_v(mop)
             ext_reads_map[k1] = read_v
@@ -244,8 +243,80 @@ def ext_reads_fn(txn):
         elif f == 'append':
             ignore.add(k1)
 
-
     return ext_reads_map
+
+
+def check_valid_read(k1, last_rw, val, i, id=None, writes=None):
+    # must read from last write/read of the same key
+    if k1 in last_rw and last_rw[k1] != val:
+        raise RejectException("inconsistent read value as last write/read")
+
+    assert (id is None and writes is None) or (id is not None and writes is not None)
+    # check if this is a future read
+    if id is not None:
+        if (id, val) in writes and writes[(id, val)] > i:
+            raise RejectException("Future read error")
+
+
+def check_INT(txn):
+    """
+    :param txn:
+    :return:
+    """
+    last_rw = {} # store which value being read last time, the expected value the current read
+    writes = {}
+
+    for i, mop in enumerate(txn):
+        f, k1 = mop[0], mop[1]
+
+        if f == 'w':
+            val = get_write_value(mop)
+            # if k1 not in writes:
+            #     writes[k1] = set()
+            writes[(k1, val)] = i
+
+    for i, mop in enumerate(txn):
+        f, k1 = mop[0], mop[1]
+
+        if f == 'range':
+            assert 5 <= len(mop) <= 6, "Wrong size of range mop, you add more items?"
+            k2, read_values, dead_values = mop[2:5]
+
+            for item in read_values:
+                id, val = item['id'], item['val']
+                assert k1 <= id <= k2
+
+                check_valid_read(k1, last_rw, val, i, id, writes)
+                last_rw[k1] = val
+
+            for item in dead_values:
+                id, val = item['id'], item['val']
+                assert k1 <= id <= k2
+
+                check_valid_read(k1, last_rw, val, i, id, writes)
+                last_rw[k1] = val
+        elif f in ['r']:
+            val = get_read_v(mop)
+            check_valid_read(k1, last_rw, val, i, k1, writes)
+
+            last_rw[k1] = val
+        elif f in ['d']:
+            succ = get_succ(mop)
+            assert succ, f"[mop]: {mop}"
+            val = get_write_value(mop)
+            read_val = get_read_v(mop)
+
+            check_valid_read(k1, last_rw, read_val, i, k1, writes)
+            last_rw[k1] = val
+        elif f == 'w':
+            succ = get_succ(mop)
+            if succ:
+                val = get_write_value(mop)
+                last_rw[k1] = val
+        elif f == 'append':
+            assert False
+
+    return True
 
 
 def ext_index(history, ext_fn):

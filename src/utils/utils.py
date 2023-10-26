@@ -596,7 +596,11 @@ def create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir):
             analysis_sub_dir, analysis_file
 
 
-def initial_state(write_ops: List[List[Any]]) -> Dict:
+def initial_state(full_history) -> Dict:
+    if full_history[0]['value'] is None:
+        return None
+
+    write_ops = full_history[0]['value']
     writes = {}
     wop: List[Any]
 

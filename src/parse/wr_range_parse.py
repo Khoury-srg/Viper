@@ -5,7 +5,9 @@ import edn_format
 from edn_format import Keyword
 
 from utils import range_utils
+from utils.exceptions import RejectException
 from utils.profiler import Profiler
+from utils.range_utils import check_INT
 from utils.utils import convert_readv
 
 
@@ -97,6 +99,9 @@ def construct_single_txn4wrrange_json(lines, txn_id):
         else:
             unparsed_txn['id'] = 0
         parsed_txns.append(unparsed_txn)
+
+        if not check_INT(unparsed_txn['value']):
+            raise RejectException("INT error")
 
     profiler.endTick("other parsing")
     return parsed_txns, txn_id
