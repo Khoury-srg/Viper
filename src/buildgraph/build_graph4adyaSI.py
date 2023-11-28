@@ -45,7 +45,7 @@ def process_final_state(G, ext_writes, Tf, rs_dict):
 
 
 def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder:str,
-                             sub_dir:str, strong_session:bool=False, hasFinal:bool=False, log_format="edn"):
+                             sub_dir:str, strong_session:bool=False, hasFinal:bool=False, log_format="json"):
     """
     construct graph from log without supporting range query
     :param logs_folder:
@@ -106,6 +106,8 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
     # wr dependency
     ext_writes = ext_index(full_history, ext_writes_fn)  # only consider successful writes
     ext_reads = ext_index(full_history, partial(ext_reads_fn))
+    initial_state = utils.initial_state(full_history)
+    # assert initial_state
 
     for i in range(1, num_txn):
         G.add_edge(0, i, 'cb')
@@ -119,15 +121,18 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
             if len(write_txns) == 0:  # no txn write this v, it should be read nil
                 # we don't do this assertion to allow preBench
                 # assert is_null(v), f"value {k}:{v} can't find its write"
-                G.add_edges([0], read_txns, 'wr')  # add edges from T0 to all read_txns
-                wr_num_edges += len(read_txns)
+                if initial_state is None or (k in initial_state and initial_state[k] == v):
+                    G.add_edges([0], read_txns, 'wr')  # add edges from T0 to all read_txns
+                    wr_num_edges += len(read_txns)
 
-                # for those txns which also wrote key k:
-                k_writes = k_writes_fn(ext_writes, k)
-                for Tj in read_txns:
-                    tmp = k_writes - {Tj}
-                    G.add_edges([Tj], tmp, 'rw')
-                    rw_num_edges += len(tmp)
+                    # for those txns which also wrote key k:
+                    k_writes = k_writes_fn(ext_writes, k)
+                    for Tj in read_txns:
+                        tmp = k_writes - {Tj}
+                        G.add_edges([Tj], tmp, 'rw')
+                        rw_num_edges += len(tmp)
+                else:
+                    raise RejectException(f"dirty read {k}: {v}")
             elif len(write_txns) == 1:
                 G.add_edges(write_txns, read_txns, 'wr')  # e.g. [3] -> [5,2,1]
                 wr_num_edges += len(read_txns)
