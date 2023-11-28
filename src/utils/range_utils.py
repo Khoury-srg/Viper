@@ -43,13 +43,13 @@ def subset(K, k1, k2):
 
 def in_between(k,k1,k2):
     if k1 is not None and k2 is not None:
-        assert k1 <= k <= k2
+        return k1 <= k <= k2
     elif k1 is None and k2 is not None:
-        assert k <= k2
+        return k <= k2
     elif k1 is not None and k2 is None:
-        assert k1 <= k
+        return k1 <= k
     else:
-        assert True
+        return True
 
 
 def is_null(NULL_VALUE, value):
@@ -246,16 +246,14 @@ def ext_reads_fn(txn):
     return ext_reads_map
 
 
-def check_valid_read(k1, last_rw, val, i, id=None, writes=None):
+def check_valid_read(k, last_rw, val, i, writes):
     # must read from last write/read of the same key
-    if k1 in last_rw and last_rw[k1] != val:
+    if k in last_rw and last_rw[k] != val:
         raise RejectException("inconsistent read value as last write/read")
 
-    assert (id is None and writes is None) or (id is not None and writes is not None)
     # check if this is a future read
-    if id is not None:
-        if (id, val) in writes and writes[(id, val)] > i:
-            raise RejectException("Future read error")
+    if (k, val) in writes and writes[(k, val)] > i:
+        raise RejectException("Future read error")
 
 
 def check_INT(txn):
@@ -284,20 +282,20 @@ def check_INT(txn):
 
             for item in read_values:
                 id, val = item['id'], item['val']
-                assert k1 <= id <= k2
+                assert in_between(id, k1, k2)
 
-                check_valid_read(k1, last_rw, val, i, id, writes)
+                check_valid_read(id, last_rw, val, i, writes)
                 last_rw[k1] = val
 
             for item in dead_values:
                 id, val = item['id'], item['val']
                 assert k1 <= id <= k2
 
-                check_valid_read(k1, last_rw, val, i, id, writes)
+                check_valid_read(id, last_rw, val, i, writes)
                 last_rw[k1] = val
         elif f in ['r']:
             val = get_read_v(mop)
-            check_valid_read(k1, last_rw, val, i, k1, writes)
+            check_valid_read(k1, last_rw, val, i, writes)
 
             last_rw[k1] = val
         elif f in ['d']:
@@ -306,7 +304,7 @@ def check_INT(txn):
             val = get_write_value(mop)
             read_val = get_read_v(mop)
 
-            check_valid_read(k1, last_rw, read_val, i, k1, writes)
+            check_valid_read(k1, last_rw, read_val, i, writes)
             last_rw[k1] = val
         elif f == 'w':
             succ = get_succ(mop)

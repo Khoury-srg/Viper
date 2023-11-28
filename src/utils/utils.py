@@ -597,15 +597,17 @@ def create_dirs(logs_folder, graphs_folder, analysis_folder, sub_dir):
 
 
 def initial_state(full_history) -> Dict:
-    if full_history[0]['value'] is None:
+    if full_history[0]['value'] is None: # this history doesn't include an initial txn that captures the initial database state
         return None
 
+    # ops must be a series of write operations
     write_ops = full_history[0]['value']
     writes = {}
     wop: List[Any]
 
     for wop in write_ops:
-        f, k, v = wop
+        f, k, v, succ = wop
+        assert succ, "the write op in the initial txn must succeed"
         assert f == 'w'
         writes[k] = v
 

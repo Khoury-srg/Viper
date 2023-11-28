@@ -19,7 +19,7 @@ def construct_single_txn4wrrange_edn(line, txn_id):
     """
     # Note: NORMAL_WR means whether it is the original wr format in Jepsen, [:r k v], [:w k v],
     # without further information for each mop
-    is_null = partial(range_utils.is_null, 'nil')
+
     try:
         cur_txn_dict = edn_format.loads(line)
     except (edn_format.exceptions.EDNDecodeError, AttributeError) as e:
@@ -98,6 +98,22 @@ def construct_single_txn4wrrange_json(lines, txn_id):
             txn_id += 1
         else:
             unparsed_txn['id'] = 0
+
+            mops = unparsed_txn["value"]
+            assert len(mops) == 1, "initial or final txn is only allowed to have one global range query"
+            range_mop = mops[0]
+            assert range_mop[1] == range_mop[2] == 'nil'
+            write_mops = []
+            for item in range_mop[3]+range_mop[4]:
+                id, val = item['id'], item['val']
+                write_mops.append(["w", id, val, True])
+            unparsed_txn = {"value": write_mops, "isInitial": unparsed_txn["isInitial"]}
+
+        for mop in unparsed_txn["value"]:
+            if mop[0] == 'range':
+                mop[1] = None if mop[1] == "nil" else mop[1]
+                mop[2] = None if mop[2] == "nil" else mop[2]
+
         parsed_txns.append(unparsed_txn)
 
         if not check_INT(unparsed_txn['value']):

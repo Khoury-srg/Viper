@@ -12,6 +12,7 @@ from utils.range_utils import ext_index, ext_writes_fn, ext_reads_fn, \
     get_all_range_queries, all_index, all_keys, all_upsert_fn, convert_rs2dict, subset, \
     k_writes_fn, Tk_set_fn, in_between, k_upserts_fn
 from utils.graphs import ArgumentedPolyGraph
+from utils import constants, range_utils
 
 
 def process_final_state(G, ext_writes, Tf, rs_dict):
@@ -57,6 +58,7 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
     history.log is the transaction log of all the committed transactions(failed and info txns are filtered).
     It contains all the nodes of the polygraph.
     """
+    is_null = partial(range_utils.is_null, constants.NULL_VALUE)
     LOG_SUB_DIR, LOG_FILE, \
     POLY_GRAPH_SUB_DIR, POLY_GRAPH_FILE, \
     ANALYSIS_SUB_DIR, ANALYSIS_FILE \
@@ -132,7 +134,8 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
                         G.add_edges([Tj], tmp, 'rw')
                         rw_num_edges += len(tmp)
                 else:
-                    raise RejectException(f"dirty read {k}: {v}")
+                    if not is_null(v):
+                        raise RejectException(f"dirty read {k}: {v}")
             elif len(write_txns) == 1:
                 G.add_edges(write_txns, read_txns, 'wr')  # e.g. [3] -> [5,2,1]
                 wr_num_edges += len(read_txns)
@@ -178,7 +181,7 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
 
         # all dead keys and returned keys should be between k1 and k2
         for k in q_keyset | dead_keys:
-            in_between(k, k1, k2)
+            assert in_between(k, k1, k2)
 
         for k in other_keys:  # this query must be before any upsert of k
             k_upserts_pos = k_upserts_fn(all_upserts, k)

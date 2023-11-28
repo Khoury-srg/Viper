@@ -6,12 +6,12 @@ from utils.profiler import Profiler
 from utils.utils import load_logs_json, load_logs_edn
 from parse.wr_range_parse import construct_all_txns_json, construct_all_txns_edn, \
     construct_single_txn4wrrange_edn, construct_single_txn4wrrange_json
-from utils import utils
 from utils.range_utils import ext_index, ext_writes_fn, ext_reads_fn, \
     get_all_range_queries, all_index, all_keys, all_writes_fn, all_upsert_fn, convert_rs2dict, subset, \
     k_writes_fn, Tk_set_fn, in_between, k_upserts_fn
 from utils.graphs import ArgumentedPolyGraph
 from collections import defaultdict
+from utils import utils, range_utils, constants
 
 
 def process_final_state(G, ext_writes, Tf, rs_dict, readfrom, wwpairs):
@@ -65,6 +65,7 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
     history: [{'id': 1, 'value': txn}]
     txn: [['r', 10, 'nil'], ['r', 7, 'nil']]
     """
+    is_null = partial(range_utils.is_null, constants.NULL_VALUE)
     num_txns = len(full_history)
     # print(f"#Txns={num_txns}")
     g = ArgumentedPolyGraph(num_txns)
@@ -113,7 +114,8 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
                         g.add_edges([Tj], tmp, 'rw')
                         rw_num_edges += len(tmp)
                 else:
-                    raise RejectException(f"dirty read {k}: {v}")
+                    if not is_null(v):
+                        raise RejectException(f"dirty read {k}: {v}")
             elif len(write_txns) == 1:
                 g.add_edges(write_txns, read_txns, 'wr')  # e.g. [3] -> [5,2,1]
                 wr_num_edges += len(read_txns)
@@ -177,7 +179,7 @@ def create_knowngraph(full_history, histories, strong_session:bool=False, hasFin
 
         # all dead keys and returned keys should be between k1 and k2
         for k in q_keyset | dead_keys:
-            in_between(k, k1, k2)
+            assert in_between(k, k1, k2)
 
         for k in other_keys:  # this query must be before any upsert of k
             k_upserts_pos = k_upserts_fn(all_upserts, k)
