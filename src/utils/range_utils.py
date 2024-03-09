@@ -285,14 +285,14 @@ def check_INT(txn):
                 assert in_between(id, k1, k2)
 
                 check_valid_read(id, last_rw, val, i, writes)
-                last_rw[k1] = val
+                last_rw[id] = val
 
             for item in dead_values:
                 id, val = item['id'], item['val']
                 assert k1 <= id <= k2
 
                 check_valid_read(id, last_rw, val, i, writes)
-                last_rw[k1] = val
+                last_rw[id] = val
         elif f in ['r']:
             val = get_read_v(mop)
             check_valid_read(k1, last_rw, val, i, writes)
