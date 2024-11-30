@@ -100,14 +100,20 @@ def construct_single_txn4wrrange_json(lines, txn_id):
             unparsed_txn['id'] = 0
 
             mops = unparsed_txn["value"]
-            assert len(mops) == 1, "initial or final txn is only allowed to have one global range query"
-            range_mop = mops[0]
-            assert range_mop[1] == range_mop[2] == 'nil'
-            write_mops = []
-            for item in range_mop[3]+range_mop[4]:
-                id, val = item['id'], item['val']
-                write_mops.append(["w", id, val, True])
-            unparsed_txn = {"value": write_mops, "isInitial": unparsed_txn["isInitial"]}
+            if len(mops) == 1 and mops[0][0] == 'range':
+                range_mop = mops[0]
+                # assert range_mop[0] == 'range', "initial or final txn is only allowed to have one global range query"
+                assert range_mop[1] == range_mop[2] == 'nil'
+                write_mops = []
+                for item in range_mop[3]+range_mop[4]:
+                    id, val = item['id'], item['val']
+                    write_mops.append(["w", id, val, True])
+                unparsed_txn = {"value": write_mops, "isInitial": unparsed_txn["isInitial"]}
+            else:
+                # t0 already consists of multiple write operations
+                # only check each mop is a write op, do nothing else
+                for mop in mops:
+                    assert mop[0] == 'w', f"mop[0] is {mop[0]}"
 
         for mop in unparsed_txn["value"]:
             if mop[0] == 'range':
