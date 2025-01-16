@@ -209,6 +209,7 @@ class MonoSAT_EdgeWeightSIChecker(Checker):
         Monosat().newSolver()
         self.g = Graph()
 
+        # assign edge weights by edge types.
         type2weight = {
             'wr': 0,
             'ww': 0,
@@ -239,6 +240,7 @@ class MonoSAT_EdgeWeightSIChecker(Checker):
                 # Assert(Xor(bc_timestamps[i] < bc_timestamps[j], bc_timestamps[i] > bc_timestamps[j]))
                 Assert(bc_timestamps[i] != bc_timestamps[j])
 
+        # time-precedes order should respect edges
         for src, dst, t in edges:
             assert src != dst
             e = self.g.addEdge(src, dst, type2weight[t])
@@ -275,7 +277,7 @@ class MonoSAT_EdgeWeightSIChecker(Checker):
         #         Assert(Not(monosat.And(self.g.distance_leq(i, j, 0), self.g.distance_leq(j, i, 1))))
         for i in range(n_nodes):
             # Assert(Not(self.g.reaches(i, i, 1)))
-            Assert(Not(self.g.distance_eq(i, i, 1)))
+            Assert(Not(self.g.distance_leq(i, i, 1)))
 
         self.profiler.endTick("encoding")
         self.profiler.startTick("solving")
