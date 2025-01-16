@@ -270,14 +270,12 @@ class MonoSAT_EdgeWeightSIChecker(Checker):
                         e2 = self.g.addEdge(k_ext_writes[j], k_ext_writes[i], type2weight['ww'])
                         Assert(Xor(e1, e2))
 
-        # for i in range(n_nodes - 1):
-        #     for j in range(i + 1, n_nodes):
-        #         # [cheng: I think we need "no 0-anti cycles" as well,
-        #         #         which hasn't be captured by this line, no?]
-        #         Assert(Not(monosat.And(self.g.distance_leq(i, j, 0), self.g.distance_leq(j, i, 1))))
-        for i in range(n_nodes):
-            # Assert(Not(self.g.reaches(i, i, 1)))
-            Assert(Not(self.g.distance_leq(i, i, 1)))
+        for i in range(n_nodes - 1):
+            for j in range(i + 1, n_nodes):
+                Assert(Not(monosat.And(self.g.distance_leq(i, j, 0), self.g.distance_leq(j, i, 1))))
+        # for i in range(n_nodes):
+        #     # Assert(Not(self.g.reaches(i, i, 1)))
+        #     Assert(Not(self.g.distance_leq(i, i, 1)))
 
         self.profiler.endTick("encoding")
         self.profiler.startTick("solving")
@@ -370,8 +368,6 @@ class MonoSAT_EdgeWeightSIChecker_Optimized(Checker):
         #     Assert(Not(G.distance_leq(i, i, 1)))
         for i in range(n_nodes - 1):
             for j in range(i + 1, n_nodes):
-                # [cheng: I think we need "no 0-anti cycles" as well,
-                #         which hasn't be captured by this line, no?]
                 monosat.Assert(monosat.Not(monosat.And(G.distance_leq(i, j, 0), self.g.distance_leq(j, i, 1))))
 
         self.profiler.endTick("encoding")
