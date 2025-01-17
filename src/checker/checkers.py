@@ -61,16 +61,20 @@ class Z3GeneralSIChecker(Checker):
             elif type2 in ['ww', 'wr', 'cb'] and type1 == 'rw':
                 solver.add(z3.Xor(R(ci(src2), ci(dst2)), R(si(src1), ci(dst1))))
             elif type1 in ['ww', 'wr', 'cb'] and type2 in ['ww', 'wr', 'cb']:
-                assert False
+                assert src1 == dst2 and src2 == dst1 , "must be a pair of ww edges"
+                solver.add(z3.Xor(R(ci(src1), si(dst1)), R(ci(dst1), (si(src1)))))
             else:  # both rw
                 assert False
 
             # solver.add(z3.Xor(z3.R1(src1,dst1), z3.R2(src2, dst2)))
-        for k in ext_writes:
-            k_ext_writes = ext_writes[k]
-            for i in range(0, len(k_ext_writes)):
-                for j in range(i + 1, len(k_ext_writes)):
-                    solver.add(z3.Xor(R(ci(i), si(j)), R(ci(j), (si(j)))))
+        # for k in ext_writes:
+        #     k_ext_writes = ext_writes[k]
+        #     for i in range(0, len(k_ext_writes)):
+        #         for j in range(i + 1, len(k_ext_writes)):
+        #             solver.add(z3.Xor(R(ci(i), si(j)), R(ci(j), (si(j)))))
+        smt_nodes = list(range(si(0), ci(n_nodes) - 1))
+        for i in smt_nodes:
+            solver.add(z3.Not(R(i, i)))
 
         self.profiler.endTick("encoding")
         self.profiler.startTick("solving")
@@ -79,12 +83,18 @@ class Z3GeneralSIChecker(Checker):
 
         self.result = True if check_result == z3.sat else False
         if not self.result:
-            print("UNSAT: unsat_core:", solver.unsat_core())
+            print("UNSAT")
         else:
             print("SAT")
+            # model = solver.model()
+            # smt_nodes = list(range(si(0), ci(n_nodes)-1))
+            # for i in smt_nodes:
+            #     for j in smt_nodes:
+            #         if i != j and model.evaluate(R(i,j)):
+            #             print(f"R({i}, {j}) = {model.evaluate(R(i,j))}")
+
         self.output_result_file()
         return self.result
-
 
 # algo 1: ASI+Z3
 class Z301Checker(Checker):
@@ -177,7 +187,7 @@ class Z301Checker(Checker):
 
         self.result = True if check_result == z3.sat else False
         if not self.result:
-            print("UNSAT: unsat_core:", solver.unsat_core())
+            print("UNSAT")
         else:
             print("SAT")
         self.output_result_file()
@@ -368,6 +378,8 @@ class MonoSAT_EdgeWeightSIChecker_Optimized(Checker):
         #     Assert(Not(G.distance_leq(i, i, 1)))
         for i in range(n_nodes - 1):
             for j in range(i + 1, n_nodes):
+                # [cheng: I think we need "no 0-anti cycles" as well,
+                #         which hasn't be captured by this line, no?]
                 monosat.Assert(monosat.Not(monosat.And(G.distance_leq(i, j, 0), self.g.distance_leq(j, i, 1))))
 
         self.profiler.endTick("encoding")

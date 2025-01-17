@@ -149,6 +149,13 @@ def construct_graph_from_log(logs_folder:str, graphs_folder:str, analysis_folder
                 assert False, "There shouldn't be two txns writing the same value for the same key!"
     print(f"WR added {wr_num_edges} WR edges, {rw_num_edges} RW edges")
 
+    G.set_all_writes(ext_writes)
+    for k in G.ext_key2writes:
+        k_ext_writes = G.ext_key2writes[k]
+        for i in range(0, len(k_ext_writes)):
+            for j in range(i + 1, len(k_ext_writes)):
+                G.add_edge_pair(k_ext_writes[i], k_ext_writes[j], 'ww', k_ext_writes[j], k_ext_writes[i], 'ww')
+
     # range query preparation
     # all_writes = all_index(full_history, all_writes_fn)  # include all writes, successful or not
     all_upserts = all_index(full_history, all_upsert_fn)  # include all insert_reads, successful or not
