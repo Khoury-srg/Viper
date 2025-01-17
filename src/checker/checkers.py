@@ -37,7 +37,7 @@ class Z3GeneralSIChecker(Checker):
         else:
             assert False
 
-    def check(self, n_nodes, edges, edge_pairs, ext_writes=None):
+    def check(self, n_nodes, edges, edge_pairs):
         self.profiler.startTick("encoding")
         solver = z3.Solver()
 
